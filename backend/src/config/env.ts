@@ -31,7 +31,7 @@ export function loadEnv() {
     const MONGO_DB_HOST_URI = getEnv('MONGO_DB_HOST_URI')
     const FRONTEND_URL = getEnv('FRONTEND_URL')
     const JWT_SECRET = getEnv('JWT_SECRET')
-    const JWT_EXPIRES_IN = Number(getEnv('JWT_EXPIRES_IN', false) || '1h')
+    const JWT_EXPIRES_IN = getEnv('JWT_EXPIRES_IN', false) || '1h'
     return {
         PORT,
         MONGO_DB_HOST_URI,

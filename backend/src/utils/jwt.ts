@@ -5,6 +5,7 @@ const { JWT_SECRET, JWT_EXPIRES_IN } = loadEnv()
 
 interface JwtPayload {
     userId: string
+    email?: string
     role: 'admin' | 'user'
 }
 
