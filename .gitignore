@@ -5,8 +5,10 @@ node_modules/
 backend/.env
 backend/.env.test
 frontend/.env
+frontend/.env.production
 
 backend/docker_run.txt
+frontend/docker_run.txt
 
 # Ignore dist files
 backend/dist/

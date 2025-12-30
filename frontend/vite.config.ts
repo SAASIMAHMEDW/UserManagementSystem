@@ -4,14 +4,18 @@ import tailwindcss from '@tailwindcss/vite'
 import path from 'node:path'
 
 type TMode = 'development' | 'production'
+
 interface AppEnv {
     PORT: string
     BACKEND_PROXY: string
     VITE_ENV: TMode
 }
 
-const validateEnv = (envMode: TMode, env: AppEnv) => {
-    const requiredVars: (keyof AppEnv)[] = ['PORT', 'VITE_ENV', 'BACKEND_PROXY']
+const validateEnv = (envMode: TMode, env: Partial<AppEnv>) => {
+    const commonVars: (keyof AppEnv)[] = ['VITE_ENV']
+    const devOnlyVars: (keyof AppEnv)[] = ['PORT', 'BACKEND_PROXY']
+
+    const requiredVars = envMode === 'development' ? [...commonVars, ...devOnlyVars] : commonVars
 
     for (const key of requiredVars) {
         if (!env[key]) {
@@ -25,34 +29,34 @@ const normalizePort = (port: string) => {
     if (isNaN(normalizedPort)) {
         throw new Error(`Invalid port value: ${port}`)
     }
-
     return normalizedPort
 }
 
 export default defineConfig(({ mode }) => {
     const envMode = mode as TMode
-    const env = loadEnv(envMode, process.cwd(), '') as unknown as AppEnv
+    const env = loadEnv(envMode, process.cwd(), '') as unknown as Partial<AppEnv>
 
     validateEnv(envMode, env)
 
-    const port = normalizePort(env.PORT)
-
-    const config: ServerOptions = {
-        port,
-        open: true,
-        proxy: {
-            '/api': {
-                target: env.BACKEND_PROXY,
-                changeOrigin: true,
-                rewrite: (path) => path.replace(/^\/api/, '')
-            }
-        }
-    }
+    const server: ServerOptions | undefined =
+        envMode === 'development'
+            ? {
+                  port: normalizePort(env.PORT!),
+                  open: true,
+                  proxy: {
+                      '/api': {
+                          target: env.BACKEND_PROXY!,
+                          changeOrigin: true,
+                          rewrite: (path) => path.replace(/^\/api/, '')
+                      }
+                  }
+              }
+            : undefined
 
     return {
         plugins: [react(), tailwindcss()],
-        server: config,
-        preview: config,
+        server,
+        preview: server,
         build: {
             minify: true
         },
