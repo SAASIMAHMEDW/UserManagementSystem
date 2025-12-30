@@ -1,6 +1,6 @@
 import { Link, useNavigate } from 'react-router-dom'
 import { useAuthSession } from '@features/auth/hooks/useAuthSession'
-import { toast } from 'react-toastify'
+
 import { useAuth } from '@features/auth/hooks/useAuth'
 import { NavLink } from 'react-router-dom'
 
@@ -11,7 +11,7 @@ export default function Navbar() {
 
     const handleLogout = async () => {
         await logout()
-        toast.info('Logged out')
+
         refresh()
         navigate('/login')
     }
@@ -29,12 +29,6 @@ export default function Navbar() {
 
                     {/* Navigation Links */}
                     <div className="flex items-center gap-6">
-                        {/* <NavLink
-                            to="/"
-                            className="text-white hover:text-gray-300 hover:border-b transition-colors font-medium">
-                            Home
-                        </NavLink> */}
-
                         {user && user?.role === 'admin' && (
                             <NavLink
                                 to="/users"

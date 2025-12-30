@@ -63,10 +63,7 @@ export default function Me() {
     }
 
     return (
-        <div className="w-full bg-black flex items-center justify-center p-4 overflow-hidden">
-            {/* Blurred backdrop overlay */}
-            <div className="absolute inset-0 bg-linear-to-br from-gray-900 via-black to-gray-900 backdrop-blur-3xl" />
-
+        <div className="flex items-center justify-center p-4 overflow-hidden">
             {/* Content wrapper with flexible layout */}
             <div className="relative z-10 w-full max-w-7xl h-full">
                 {/* Header - stays on top */}

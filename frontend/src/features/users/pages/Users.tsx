@@ -55,10 +55,7 @@ function Users() {
     }
 
     return (
-        <div className="w-full bg-black flex justify-center p-6">
-            {/* Background blur */}
-            <div className="absolute inset-0 bg-linear-to-br from-gray-900 via-black to-gray-900 backdrop-blur-3xl" />
-
+        <div className="flex justify-center p-6">
             <div className="relative z-10 max-w-7xl mx-auto">
                 {/* Header */}
                 <div className="text-center mb-6">

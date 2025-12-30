@@ -17,5 +17,11 @@ export default function ProtectedRoute() {
         )
     }
 
-    return <Outlet />
+    return (
+        <div className="w-full bg-black">
+            {/* Background blur */}
+            <div className="absolute inset-0 bg-linear-to-br from-gray-900 via-black to-gray-900 backdrop-blur-3xl" />
+            <Outlet />
+        </div>
+    )
 }
