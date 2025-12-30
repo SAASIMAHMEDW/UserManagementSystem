@@ -27,7 +27,8 @@ function getEnv(key: string, required = true): string {
  * @throws {Error} If MONGO_DB_HOST_URI or FRONTEND_URL is not set.
  */
 export function loadEnv() {
-    const PORT = Number(getEnv('PORT', false)) || 3000
+    //const PORT = Number(getEnv('PORT', false)) || 3000
+    const PORT = Number(process.env.PORT) || 3000
     const MONGO_DB_HOST_URI = getEnv('MONGO_DB_HOST_URI')
     const FRONTEND_URL = getEnv('FRONTEND_URL')
     const JWT_SECRET = getEnv('JWT_SECRET')
