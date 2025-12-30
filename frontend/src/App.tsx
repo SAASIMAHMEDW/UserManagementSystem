@@ -1,21 +1,21 @@
-import { Navbar } from '@shared/components'
-import { Outlet } from 'react-router-dom'
-import { ToastContainer } from 'react-toastify'
+import { useAuthSession } from '@features/auth/hooks/useAuthSession'
+import { Navigate } from 'react-router-dom'
 
 function App() {
-    return (
-        <>
-            <Navbar />
-            <main className="p-4">
-                <Outlet />
-            </main>
+    const { loading, isAuthenticated } = useAuthSession()
 
-            <ToastContainer
-                position="top-right"
-                autoClose={5000}
-                pauseOnHover
-            />
-        </>
+    if (loading) return <div className="p-4">Loading...</div>
+
+    return isAuthenticated ? (
+        <Navigate
+            to="/me"
+            replace
+        />
+    ) : (
+        <Navigate
+            to="/login"
+            replace
+        />
     )
 }
 

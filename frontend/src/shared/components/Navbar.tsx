@@ -16,22 +16,49 @@ export default function Navbar() {
     }
 
     return (
-        <nav className="flex gap-4 p-4 border-b">
-            <Link to="/">Home</Link>
+        <nav className="w-screen h-20 justify-center sticky top-0 z-50 backdrop-blur-xl bg-white/10 border-b border-white/20">
+            <div className="container mx-auto px-4 py-4">
+                <div className="flex items-center justify-between">
+                    {/* Logo/Brand */}
+                    <Link
+                        to="/"
+                        className="text-xl font-bold text-white hover:text-gray-300 transition-colors">
+                        User Management System
+                    </Link>
 
-            {!user && (
-                <>
-                    <Link to="/login">Login</Link>
-                    <Link to="/signup">Signup</Link>
-                </>
-            )}
+                    {/* Navigation Links */}
+                    <div className="flex items-center gap-6">
+                        <Link
+                            to="/"
+                            className="text-white hover:text-gray-300 transition-colors font-medium">
+                            Home
+                        </Link>
 
-            {user && (
-                <>
-                    <Link to="/me">My Profile</Link>
-                    <button onClick={handleLogout}>Logout</button>
-                </>
-            )}
+                        {user && user?.role === 'admin' && (
+                            <Link
+                                to="/users"
+                                className="text-white hover:text-gray-300 transition-colors font-medium">
+                                Users
+                            </Link>
+                        )}
+
+                        {user && (
+                            <>
+                                <Link
+                                    to="/me"
+                                    className="text-white hover:text-gray-300 transition-colors font-medium">
+                                    My Profile
+                                </Link>
+                                <button
+                                    onClick={handleLogout}
+                                    className="px-4 py-2 bg-white/20 hover:bg-white/30 text-white font-medium rounded-lg backdrop-blur-sm border border-white/30 transition-all duration-200">
+                                    Logout
+                                </button>
+                            </>
+                        )}
+                    </div>
+                </div>
+            </div>
         </nav>
     )
 }
