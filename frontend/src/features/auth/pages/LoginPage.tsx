@@ -1,15 +1,13 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { loginSchema } from '../schemas/auth.schema'
 import { useAuth } from '../hooks/useAuth'
 import { toast } from 'react-toastify'
 import { useNavigate } from 'react-router-dom'
 import { Link } from 'react-router-dom'
-import { useAuthSession } from '../hooks/useAuthSession'
 
 export default function LoginPage() {
     const navigate = useNavigate()
     const { login, loading } = useAuth()
-    const { isAuthenticated, loading: sessionLoading } = useAuthSession()
 
     const [form, setForm] = useState({
         email: '',
@@ -33,14 +31,8 @@ export default function LoginPage() {
             password: ''
         })
         // toast.success('Login successful')
-        // navigate('/me', { replace: true })
+        navigate('/me', { replace: true })
     }
-
-    useEffect(() => {
-        if (!sessionLoading && isAuthenticated) {
-            navigate('/me', { replace: true })
-        }
-    }, [navigate, sessionLoading, isAuthenticated])
 
     return (
         <div className="min-h-screen w-full bg-black flex items-center justify-center p-4">
